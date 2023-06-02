@@ -49,8 +49,19 @@ class MyArray<T extends unknown[]> {
     return newArray
   }
 
-  filter() {
-    // Implement me!!!
+  filter(
+    callbackfn: (
+      value: T[number],
+      index: number,
+      array: Record<number, T[number]>
+    ) => boolean
+  ): MyArray<T[number][]> {
+    let newArray = new MyArray<T[number][]>()
+    for (let index = 0; index < this.length; index++) {
+      callbackfn(this.value[index], index, this.value) &&
+        newArray.push(this.value[index])
+    }
+    return newArray
   }
 }
 
@@ -74,3 +85,5 @@ const arr = array.map((el) => {
 })
 
 console.log(arr.value)
+
+console.log(array.filter((el) => typeof el === "string"))
